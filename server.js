@@ -1,21 +1,28 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
-import authRoutes from './routes/authRoutes.js';
-import eventRoutes from './routes/eventRoutes.js';
-import organizerRoutes from './routes/organizerRoutes.js';
+const express = require("express");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
+const authRoute = require("./routes/authRoutes.js");
+const userRoute = require("./routes/userRoute.js");
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
+app.use(cors());
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
-app.use('/api/auth', authRoutes);
-app.use('/api/events', eventRoutes);
-app.use('/api/organizers', organizerRoutes);
+app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
 
-app.listen(process.env.PORT || 5000, () => console.log(`Server running`));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
