@@ -1,9 +1,16 @@
-import express from 'express';
+const express = require("express");
+const {
+  register,
+  login,
+  getMe,
+  updateDetails,
+} = require("../controllers/authController");
+const { protect } = require("../middleware/auth");
 const router = express.Router();
 
-// your routes
-router.get('/', (req, res) => {
-  res.send('Auth route works');
-});
+router.post("/register", register);
+router.post("/login", login);
+router.get("/me", protect, getMe);
+router.put("/updatedetails", protect, updateDetails);
 
-export default router;
+module.exports = router;
