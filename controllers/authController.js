@@ -3,12 +3,13 @@ const asyncHandler = require("../utils/asyncHandler");
 const ErrorResponse = require("../utils/errorResponse");
 
 exports.register = asyncHandler(async (req, res, next) => {
-  const { name, email, phone } = req.body;
+  const { name, email, password, orgName } = req.body;
 
   const user = await User.create({
     name,
     email,
-    phone,
+    password,
+    orgName,
   });
 
   sendTokenResponse(user, 201, res);
@@ -52,7 +53,6 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
   const fieldsToUpdate = {
     name: req.body.name,
     email: req.body.email,
-    phone: req.body.phone,
   };
 
   const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {

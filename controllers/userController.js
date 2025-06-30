@@ -27,7 +27,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 });
 
 exports.createUser = asyncHandler(async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, orgName } = req.body;
 
   const existingUser = await User.findOne({ email });
   if (existingUser) {
@@ -38,6 +38,7 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     name,
     email,
     password,
+    orgName,
   });
 
   const userObj = user.toObject();
