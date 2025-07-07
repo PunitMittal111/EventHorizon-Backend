@@ -6,7 +6,7 @@ const connectDB= require("./config/db.js")
 
 const authRoute = require("./routes/authRoutes.js");
 const userRoute = require("./routes/userRoute.js");
-
+const eventRoutes = require('./routes/eventRoutes');
 
 dotenv.config();
 connectDB();
@@ -19,6 +19,7 @@ app.use(cors());
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
+app.use('/api/events', eventRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
