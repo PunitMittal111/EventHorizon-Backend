@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema(
     lastLogin: {
       type: Date,
     },
-    isOrganizer: { type: Boolean, default: false },
+    orgName: { type: String, required: true },
   },
   { timestamps: true }
 );
