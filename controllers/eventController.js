@@ -14,7 +14,9 @@ exports.getEvents = async (req, res) => {
       ];
     }
 
-    const events = await Event.find(filter).sort({ startDate: 1 });
+    const events = await Event.find(filter)
+      .sort({ startDate: 1 })
+      .populate("category", "name color");
     res.status(200).json(events);
   } catch (error) {
     res
@@ -25,10 +27,14 @@ exports.getEvents = async (req, res) => {
 
 exports.getEventById = async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.params.id).populate(
+      "category",
+      "name color"
+    );
     if (!event) return res.status(404).json({ message: "Event not found" });
     res.json(event);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Server Error", error });
   }
 };
