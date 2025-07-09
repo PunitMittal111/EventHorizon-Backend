@@ -22,21 +22,21 @@ const CategorySchema = new mongoose.Schema({
   isDefault: Boolean,
 });
 
-const AnalyticsSchema = new mongoose.Schema({
-  totalViews: { type: Number, default: 0 },
-  uniqueViews: { type: Number, default: 0 },
-  totalTicketsSold: { type: Number, default: 0 },
-  totalRevenue: { type: Number, default: 0 },
-  conversionRate: { type: Number, default: 0 },
-  topTrafficSources: [String],
-  geographicData: [Object],
-  dailyStats: [Object],
-  deviceStats: {
-    desktop: { type: Number, default: 0 },
-    mobile: { type: Number, default: 0 },
-    tablet: { type: Number, default: 0 },
-  },
-});
+// const AnalyticsSchema = new mongoose.Schema({
+//   totalViews: { type: Number, default: 0 },
+//   uniqueViews: { type: Number, default: 0 },
+//   totalTicketsSold: { type: Number, default: 0 },
+//   totalRevenue: { type: Number, default: 0 },
+//   conversionRate: { type: Number, default: 0 },
+//   topTrafficSources: [String],
+//   geographicData: [Object],
+//   dailyStats: [Object],
+//   deviceStats: {
+//     desktop: { type: Number, default: 0 },
+//     mobile: { type: Number, default: 0 },
+//     tablet: { type: Number, default: 0 },
+//   },
+// });
 
 const SettingsSchema = new mongoose.Schema({
   allowWaitlist: Boolean,
@@ -74,7 +74,7 @@ const EventSchema = new mongoose.Schema(
       default: "in-person",
     },
     venue: { type: VenueSchema },
-    virtualEventUrl: String,
+    // virtualEventUrl: String,
     imageUrl: String,
     galleryImages: [String],
     category: [CategorySchema],
@@ -94,8 +94,8 @@ const EventSchema = new mongoose.Schema(
     tickets: [TicketSchema],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
-    publishedAt: Date,
-    analytics: AnalyticsSchema,
+    // publishedAt: Date,
+    // analytics: AnalyticsSchema,
     settings: SettingsSchema,
     seo: SeoSchema,
   },
