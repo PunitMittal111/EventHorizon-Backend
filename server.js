@@ -20,9 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir); 
+  fs.mkdirSync(uploadsDir);
 }
-app.use("/uploads", express.static(uploadsDir)); 
+app.use("/events/uploads", express.static(uploadsDir));
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
