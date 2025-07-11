@@ -10,6 +10,7 @@ const connectDB = require("./config/db.js");
 const authRoute = require("./routes/authRoutes.js");
 const userRoute = require("./routes/userRoute.js");
 const eventRoutes = require("./routes/eventRoutes.js");
+const ticketRoutes = require("./routes/ticketRoutes.js");
 
 dotenv.config();
 connectDB();
@@ -27,6 +28,7 @@ app.use("/events/uploads", express.static(uploadsDir));
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/events", eventRoutes);
+app.use("/api/tickets", ticketRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
