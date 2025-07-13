@@ -28,6 +28,7 @@ const userSchema = mongoose.Schema(
       type: Date,
     },
     orgName: { type: String, required: true },
+    profilePhoto: { type: String, default: "" },
   },
   { timestamps: true }
 );
