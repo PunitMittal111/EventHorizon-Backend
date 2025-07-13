@@ -51,18 +51,22 @@ exports.createUser = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateUser = asyncHandler(async (req, res, next) => {
-  const fieldsToUpdate = {
-    name: req.body.name,
-    email: req.body.email,
-    phone: req.body.phone,
-  };
+  // Only include fields that are actually provided
+  const fieldsToUpdate = {};
+
+  if (req.body.name !== undefined) fieldsToUpdate.name = req.body.name;
+  if (req.body.email !== undefined) fieldsToUpdate.email = req.body.email;
+  if (req.body.phone !== undefined) fieldsToUpdate.phone = req.body.phone;
+  if (req.body.orgName !== undefined) fieldsToUpdate.orgName = req.body.orgName;
+  if (req.body.profilePhoto !== undefined)
+    fieldsToUpdate.profilePhoto = req.body.profilePhoto;
 
   const userId = req.user?._id || req.params.id;
 
   const user = await User.findByIdAndUpdate(userId, fieldsToUpdate, {
     new: true,
     runValidators: true,
-  });
+  }).select("-password"); // Exclude password from response
 
   if (!user) {
     return next(new ErrorResponse("User not found", 404));
@@ -70,7 +74,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    user,
+    user: user, 
   });
 });
 
