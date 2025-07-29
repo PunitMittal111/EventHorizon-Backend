@@ -45,11 +45,18 @@ const TicketSchema = new mongoose.Schema({
 const EventSchema = new mongoose.Schema(
   {
     orgName: { type: String },
-    title: { type: String, required: true },
-    description: String,
+    title: {
+      type: String,
+      required: [true, "Please provide event title"],
+      maxlength: 100,
+    },
+    description: {
+      type: String,
+      required: [true, "Please provide event description"],
+    },
     shortDescription: String,
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true },
+    startDate: { type: Date, required: [true, "Please provide start date"] },
+    endDate: { type: Date, required: [true, "Please provide end date"] },
     timezone: String,
     eventType: {
       type: String,
@@ -63,7 +70,7 @@ const EventSchema = new mongoose.Schema(
     customTags: [String],
     status: {
       type: String,
-      enum: ["draft", "published", "completed", "cancelled", "archived"],
+      enum: ["draft", "published", "completed"],
       default: "draft",
     },
     visibility: {
@@ -71,7 +78,10 @@ const EventSchema = new mongoose.Schema(
       enum: ["public", "private", "unlisted"],
       default: "public",
     },
-    maxAttendees: Number,
+    maxAttendees: {
+      type: Number,
+      required: [true, "Please provide maximum tickets"],
+    },
     currentAttendees: { type: Number, default: 0 },
     tickets: [TicketSchema],
     createdAt: { type: Date, default: Date.now },
