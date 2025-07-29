@@ -24,6 +24,15 @@ const userSchema = mongoose.Schema(
       minlength: 4,
       select: false,
     },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+    subscription: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Subscription",
+    },
     lastLogin: {
       type: Date,
     },
